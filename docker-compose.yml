@@ -18,23 +18,23 @@ services:
       - ./code:/home/eqemu/code:delegated
       - ./assets:/home/eqemu/assets:delegated
     ports:
-      - ${IP_ADDRESS}:2222:22/tcp
-      - ${IP_ADDRESS}:2222:22/udp
-      - ${IP_ADDRESS}:3000-3010:3000-3010
-      - ${IP_ADDRESS}:8080:8080
-      - ${IP_ADDRESS}:9001:9001/tcp
-      - ${IP_ADDRESS}:9001:9001/udp
-      - ${IP_ADDRESS}:9000:9000/tcp
-      - ${IP_ADDRESS}:9000:9000/udp
-      - ${IP_ADDRESS}:5999:5999/tcp
-      - ${IP_ADDRESS}:5999:5999/udp
-      - ${IP_ADDRESS}:5998:5998/tcp
-      - ${IP_ADDRESS}:5998:5998/udp
-      - ${IP_ADDRESS}:6000:6000/tcp
-      - ${IP_ADDRESS}:7778:7778/tcp
-      - ${IP_ADDRESS}:7778:7778/udp
-      - ${IP_ADDRESS}:7000-${PORT_RANGE_HIGH}:7000-${PORT_RANGE_HIGH}/tcp
-      - ${IP_ADDRESS}:7000-${PORT_RANGE_HIGH}:7000-${PORT_RANGE_HIGH}/udp
+      - 2222:22/tcp
+      - 2222:22/udp
+      - 3000-3010:3000-3010
+      - 8080:8080
+      - 9001:9001/tcp
+      - 9001:9001/udp
+      - 9000:9000/tcp
+      - 9000:9000/udp
+      - 5999:5999/tcp
+      - 5999:5999/udp
+      - 5998:5998/tcp
+      - 5998:5998/udp
+      - 6000:6000/tcp
+      - 7778:7778/tcp
+      - 7778:7778/udp
+      - 7000-${PORT_RANGE_HIGH}:7000-${PORT_RANGE_HIGH}/tcp
+      - 7000-${PORT_RANGE_HIGH}:7000-${PORT_RANGE_HIGH}/udp
     environment:
       - SERVER_PASSWORD=${SERVER_PASSWORD}
       - EQEMU_DB_PASSWORD=${MARIADB_PASSWORD}
@@ -61,9 +61,9 @@ services:
     build:
       context: ./containers/mariadb
       args:
-        - INNODB_BUFFER_POOL_SIZE=${INNODB_BUFFER_POOL_SIZE:-256MB}
+        - INNODB_BUFFER_POOL_SIZE=${INNODB_BUFFER_POOL_SIZE:-1024MB}
     ports:
-      - ${IP_ADDRESS}:3306:3306
+      - 3306:3306
     volumes:
       - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql:delegated
     environment:
@@ -84,7 +84,7 @@ services:
     build: ./containers/http-proxy
     restart: unless-stopped
     ports:
-      - ${IP_ADDRESS}:8082:80
+      - 8082:80
     environment:
       - BASIC_AUTH_USERNAME=${PHPMYADMIN_USERNAME}
       - BASIC_AUTH_PASSWORD=${PHPMYADMIN_PASSWORD}
@@ -112,7 +112,7 @@ services:
     image: akkadius/peq-editor:latest
     restart: unless-stopped
     ports:
-      - ${IP_ADDRESS}:8081:80
+      - 8081:80
     volumes:
       - ${DATA_PATH_HOST}/peq-editor:/var/www/html
     environment:
@@ -141,8 +141,8 @@ services:
     volumes:
       - ./server/quests/:/home/quests/
     ports:
-      - ${IP_ADDRESS}:21:21
-      - ${IP_ADDRESS}:30000-30009:30000-30009
+      - 21:21
+      - 30000-30009:30000-30009
     networks:
       - backend
 
