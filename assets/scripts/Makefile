@@ -169,7 +169,7 @@ pull-maps: ##@assets Pulls maps
 
 pull-eqemu-code: ##@assets Pulls eqemu code
 	@./assets/scripts/banner.pl "Pulling EQEmu Source Code into [./code]"
-	git -C ./code pull 2> /dev/null || git clone https://github.com/EQEmu/Server.git code
+	git -C ./code pull 2> /dev/null || git clone -b cbeq https://github.com/ChaosBuffalo/Server.git code
 
 pull-eqemu-server-script: ##@assets Pulls eqemu_server.pl
 	@./assets/scripts/banner.pl "Pulling EQEmu Server Management Script [eqemu_server.pl]"
